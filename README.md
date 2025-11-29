@@ -12,10 +12,13 @@ OpenGL
 
 3D rendering of campus buildings and landscape 🏢🌳
 
-Camera navigation to explore the scene 🕹️
 
 Realistic spatial representation and scaling 📏
 
-📸 Screenshots
+we chose this picture to draw :
+<img width="803" height="739" alt="image" src="https://github.com/user-attachments/assets/1da5d81b-5ee1-4263-b30d-13205f8b16f4" />
+
+
+📸 The final result :
 
 <img width="833" height="839" alt="Screenshot 2025-11-29 213651" src="https://github.com/user-attachments/assets/058e3454-f26b-4157-a464-47e64a8552f0" />
