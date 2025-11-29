@@ -1,0 +1,595 @@
+#include <windows.h>
+#include<GL/glut.h>
+#include <cmath>
+
+// متغيرات للغيوم
+float cloudX = 0.0f;
+float cloudSpeed = 0.2f;
+
+// متغيرات للكرة
+float ballBaseX = 61.5f;   // الموضع الأساسي للكرة
+float ballSpeed = 0.0f;     // متغير زمني لحركة الكرة
+
+void init() {
+    glClearColor(0.76, 0.82, 0.85, 1);
+    gluOrtho2D(0, 100, 0, 100);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+}
+
+void Majd(float X) {
+    glBegin(GL_TRIANGLE_STRIP);
+    glColor3f(0.45, 0.15, 0.16);
+
+    glVertex2f(X + 10, 33);
+    glVertex2f(X + 10, 25);
+    glVertex2f(X + 15, 25);
+
+    glVertex2f(X + 10, 33);
+    glVertex2f(X + 15, 25);
+    glVertex2f(X + 15, 33);
+
+    glVertex2f(X + 15, 33);
+    glVertex2f(X + 15, 25);
+    glVertex2f(X + 20, 25);
+
+    glVertex2f(X + 15, 33);
+    glVertex2f(X + 20, 25);
+    glVertex2f(X + 20, 33);
+
+    glVertex2f(X + 20, 33);
+    glVertex2f(X + 20, 25);
+    glVertex2f(X + 25, 25);
+
+    glVertex2f(X + 20, 33);
+    glVertex2f(X + 25, 25);
+    glVertex2f(X + 25, 33);
+
+    glVertex2f(X + 25, 33);
+    glVertex2f(X + 25, 25);
+    glVertex2f(X + 30, 25);
+
+    glVertex2f(X + 25, 33);
+    glVertex2f(X + 30, 25);
+    glVertex2f(X + 30, 33);
+
+    glVertex2f(X + 30, 33);
+    glVertex2f(X + 30, 25);
+    glVertex2f(X + 35, 33);
+
+    glVertex2f(X + 35, 33);
+    glVertex2f(X + 30, 25);
+    glVertex2f(X + 35, 25);
+
+    glVertex2f(X + 35, 30);
+    glVertex2f(X + 35, 25);
+    glVertex2f(X + 38.5, 25);
+
+    glVertex2f(X + 35, 30);
+    glVertex2f(X + 38.5, 25);
+    glVertex2f(X + 38.5, 30);
+
+    glVertex2f(X + 35, 25);
+    glVertex2f(X + 35, 20);
+    glVertex2f(X + 38.5, 20);
+
+    glVertex2f(X + 35, 25);
+    glVertex2f(X + 38.5, 20);
+    glVertex2f(X + 38.5, 25);
+
+    glVertex2f(X + 30, 25);
+    glVertex2f(X + 30, 20);
+    glVertex2f(X + 35, 20);
+
+    glVertex2f(X + 30, 25);
+    glVertex2f(X + 35, 20);
+    glVertex2f(X + 35, 25);
+
+    glVertex2f(X + 35, 20);
+    glVertex2f(X + 35, 15);
+    glVertex2f(X + 38.5, 15);
+
+    glVertex2f(X + 35, 20);
+    glVertex2f(X + 38.5, 15);
+    glVertex2f(X + 38.5, 20);
+
+    glVertex2f(X + 30, 20);
+    glVertex2f(X + 30, 12.5);
+    glVertex2f(X + 35, 12.5);
+
+    glVertex2f(X + 30, 20);
+    glVertex2f(X + 35, 12.5);
+    glVertex2f(X + 35, 20);
+
+    glVertex2f(X + 25, 20);
+    glVertex2f(X + 25, 12.5);
+    glVertex2f(X + 30, 12.5);
+
+    glVertex2f(X + 25, 20);
+    glVertex2f(X + 30, 12.5);
+    glVertex2f(X + 30, 20);
+
+    glVertex2f(X + 20, 20);
+    glVertex2f(X + 20, 15);
+    glVertex2f(X + 25, 15);
+
+    glVertex2f(X + 20, 20);
+    glVertex2f(X + 25, 15);
+    glVertex2f(X + 25, 20);
+
+    glVertex2f(X + 20, 15);
+    glVertex2f(X + 20, 10);
+    glVertex2f(X + 22, 12.5);
+
+    glVertex2f(X + 20, 15);
+    glVertex2f(X + 22, 12.5);
+    glVertex2f(X + 25, 15);
+
+    glVertex2f(X + 25, 15);
+    glVertex2f(X + 25, 12.5);
+    glVertex2f(X + 20, 12.5);
+
+    glVertex2f(X + 22, 12.5);
+    glVertex2f(X + 22, 10);
+    glVertex2f(X + 20, 10);
+
+    glVertex2f(X + 15, 20);
+    glVertex2f(X + 15, 10);
+    glVertex2f(X + 20, 20);
+
+    glVertex2f(X + 20, 20);
+    glVertex2f(X + 20, 10);
+    glVertex2f(X + 15, 10);
+
+    glVertex2f(X + 15, 20);
+    glVertex2f(X + 12.5, 17.5);
+    glVertex2f(X + 12.5, 20);
+
+    glVertex2f(X + 15, 20);
+    glVertex2f(X + 15, 15);
+    glVertex2f(X + 12.5, 17.5);
+
+    glVertex2f(X + 10, 17.5);
+    glVertex2f(X + 15, 15);
+    glVertex2f(X + 12.5, 17.5);
+
+    glVertex2f(X + 10, 17.5);
+    glVertex2f(X + 10, 15);
+    glVertex2f(X + 15, 15);
+
+    glVertex2f(X + 10, 15);
+    glVertex2f(X + 10, 5);
+    glVertex2f(X + 20, 5);
+
+    glVertex2f(X + 10, 15);
+    glVertex2f(X + 15, 10);
+    glVertex2f(X + 15, 15);
+
+    glVertex2f(X + 15, 10);
+    glVertex2f(X + 20, 5);
+    glVertex2f(X + 20, 10);
+
+    glVertex2f(X + 20, 10);
+    glVertex2f(X + 20, 5);
+    glVertex2f(X + 25, 5);
+
+    glVertex2f(X + 20, 10);
+    glVertex2f(X + 25, 5);
+    glVertex2f(X + 38.5, 10);
+
+    glVertex2f(X + 38.5, 10);
+    glVertex2f(X + 38.5, 5);
+    glVertex2f(X + 25, 5);
+    glEnd();
+}
+
+void Lina() {
+    float x_start = 50.0f;
+    float y_start = 40.0f;
+    float width = 50.0f;
+    float height = 50.0f;
+glColor3f(0.3f, 0.3f, 0.3f);  // رمادي غامق
+    glBegin(GL_LINE_LOOP);
+    glVertex2f(x_start, y_start);
+    glVertex2f(x_start + width, y_start);
+    glVertex2f(x_start + width, y_start + height);
+    glVertex2f(x_start, y_start + height);
+    glEnd();
+
+    // رسم الشبكة القطرية
+
+
+for (float x = x_start; x < x_start + width; x += 5.0f) {
+        for (float y = y_start; y < y_start + height; y += 5.0f) {
+            glBegin(GL_LINES);
+            glVertex2f(x, y + 5.0f);
+            glVertex2f(x + 5.0f, y);
+            glEnd();
+            glBegin(GL_LINES);
+            glVertex2f(x, y);
+            glVertex2f(x + 5.0f, y + 5.0f);
+            glEnd();
+        }
+    }
+}
+
+
+
+void Shomok() {//shomok
+    // رسم الجزء العلوي من المظلة
+    glBegin(GL_TRIANGLES);
+    glColor3f(1.0, 0.85, 0.0); // لون برتقالي فاتح
+    glVertex2f(60.0, 70.0); // نقطة يسار للمثلث
+    glVertex2f(100.0, 70.0);  // نقطة يمين مثلث
+    glVertex2f(80.0, 100.0);  // قمة المظلة
+    glEnd();
+
+    // إضافة خطوط طولية للمظلة لإظهار التأثير ثلاثي الأبعاد
+    glColor3f(0.8, 0.6, 0.0); // لون أغمق للخطوط
+    for (float x = 60.0; x <= 100.0; x += 2.0) {
+        glBegin(GL_LINES);
+        glVertex2f(x, 70.0); // نقطة البداية
+        glVertex2f(80.0, 100.0); // نقطة النهاية
+        glEnd();
+    }
+
+    // العمود الأيسر (ثلاثي الأبعاد، أنحف)
+    glBegin(GL_QUADS);
+    glColor3f(0.5, 0.5, 0.5); // لون رمادي
+    glVertex2f(72.0, 70.0); // نقطة يسار السفلية
+    glVertex2f(73.0, 70.0);  // نقطة يمين السفلية
+    glVertex2f(73.0, 40.0);  // نقطة يمين العلوية
+    glVertex2f(72.0, 40.0); // نقطة يسار العلوية
+    glEnd();
+
+    // جوانب العمود الأيسر
+    glBegin(GL_QUADS);
+    glColor3f(0.3, 0.3, 0.3); // لون أغمق لجانب العمود
+    glVertex2f(73.0, 70.0);  // نقطة يمين السفلية
+    glVertex2f(74.0, 70.0);  // نقطة يمين السفلية
+    glVertex2f(74.0, 40.0);  // نقطة يمين العلوية
+    glVertex2f(73.0, 40.0);  // نقطة يمين العلوية
+    glEnd();
+
+    // العمود الأيمن (ثلاثي الأبعاد، أنحف)
+    glBegin(GL_QUADS);
+    glColor3f(0.5, 0.5, 0.5); // لون رمادي
+    glVertex2f(86.0, 70.0); // نقطة يسار السفلية
+    glVertex2f(87.0, 70.0);  // نقطة يمين السفلية
+    glVertex2f(87.0, 40.0);  // نقطة يمين العلوية
+    glVertex2f(86.0, 40.0); // نقطة يسار العلوية
+    glEnd();
+
+    // جوانب العمود الأيمن
+    glBegin(GL_QUADS);
+    glColor3f(0.3, 0.3, 0.3); // لون أغمق لجانب العمود
+    glVertex2f(87.0, 70.0);  // نقطة يمين السفلية
+    glVertex2f(88.0, 70.0);  // نقطة يمين السفلية
+    glVertex2f(88.0, 40.0);  // نقطة يمين العلوية
+    glVertex2f(87.0, 40.0);  // نقطة يمين العلوية
+    glEnd();
+}
+
+
+void Wasan() {
+    //Black blocks 
+    glBegin(GL_QUADS);
+    for (int i = 0; i < 100;i += 30) {
+        glColor3f(0.35, 0.35, 0.35);
+        glVertex2i(i, 25);
+        glVertex2i(i + 15, 25);
+        glVertex2i(i + 15, 20);
+        glColor3f(0.1, 0.1, 0.1);
+        glVertex2i(i, 20);
+    }
+    //White blocks 
+    for (int i = 15; i < 100;i += 30) {
+        glColor3f(1, 1, 1);
+        glVertex2i(i, 25);
+        glVertex2i(i + 15, 25);
+        glVertex2i(i + 15, 20);
+        glColor3f(0.6, 0.6, 0.6);
+        glVertex2i(i, 20);
+    }
+    glEnd();
+    //The rest of the sidewalk 
+    glColor3f(0.75, 0.75, 0.67);
+    glBegin(GL_QUADS);
+    glVertex2i(0, 25);
+    glVertex2i(100, 25);
+    glColor3f(0.92, 0.89, 0.81);
+    glVertex2i(100, 40);
+    glVertex2i(0, 40);
+    glEnd();
+    //outline
+    glColor3f(0, 0, 0);
+    glLineWidth(1);
+    glBegin(GL_LINES);
+    glVertex2i(0, 25);
+    glVertex2i(100, 25);
+    glVertex2i(0, 20);
+    glVertex2i(100, 20);
+    glColor3f(0.5, 0.5, 0.5);
+    glVertex2i(0, 23);
+    glVertex2i(100, 23);
+    glEnd();
+}
+
+void Maha() {
+    float x_start = 50.0f;         // موقع السياج على اليسار
+    float y_start = 40.0f;        // ارتفاع الرصيف
+    float width = 50.0f;          // عرض السياج
+    float height = 50.0f;         // ارتفاع السياج
+// السياج الخارجي
+    glColor3f(0.3f, 0.3f, 0.3f);
+    glBegin(GL_LINE_LOOP);
+    glVertex2f(x_start, y_start);
+    glVertex2f(x_start + width, y_start);
+    glVertex2f(x_start + width, y_start + height);
+    glVertex2f(x_start, y_start + height);
+    glEnd();
+
+    // شبكة السياج القطرية
+    for (float x = x_start; x < x_start + width; x += 5.0f) {
+        for (float y = y_start; y < y_start + height; y += 5.0f) {
+            glBegin(GL_LINES);
+            glVertex2f(x, y + 5.0f);
+            glVertex2f(x + 5.0f, y);
+
+
+glVertex2f(x, y);
+            glVertex2f(x + 5.0f, y + 5.0f);
+            glEnd();
+        }
+    }
+
+    // إعدادات الباب
+    float door_width = 15.0f;
+    float door_height = 30.0f;
+    float door_x_start = x_start + (width - door_width) / 5.0f;
+    float door_y_start = y_start;
+
+    // إطار الباب
+    glBegin(GL_LINE_LOOP);
+    glVertex2f(door_x_start, door_y_start);
+    glVertex2f(door_x_start + door_width, door_y_start);
+    glVertex2f(door_x_start + door_width, door_y_start + door_height);
+    glVertex2f(door_x_start, door_y_start + door_height);
+    glEnd();
+
+    // شبكة الباب
+    for (float x = door_x_start; x < door_x_start + door_width; x += 5.0f) {
+        for (float y = door_y_start; y < door_y_start + door_height; y += 5.0f) {
+            glBegin(GL_LINES);
+            glVertex2f(x, y + 5.0f);
+            glVertex2f(x + 5.0f, y);
+            glVertex2f(x, y);
+            glVertex2f(x + 5.0f, y + 5.0f);
+            glEnd();
+        }
+    }
+}
+
+
+
+
+void Lujain()
+{
+    glBegin(GL_QUADS);
+    glColor3ub(50, 50, 50);
+    glVertex2i(0, 0);
+    glVertex2i(100, 0);
+    glColor3ub(100, 100, 100);
+    glVertex2i(100, 20);
+    glVertex2i(0, 20);
+    glEnd();
+
+    glColor3ub(217, 217, 217);
+    glLineWidth(6.0);
+    glBegin(GL_LINES);
+    glVertex2i(30, 12.5); glVertex2i(60, 12.5);
+    glVertex2i(65, 12.5); glVertex2i(95, 12.5);
+    glEnd();
+
+    glLineWidth(4.0);
+    glBegin(GL_LINES);
+    glColor3ub(45, 45, 45);
+    glVertex2i(30, 11.5); glVertex2i(60, 11.5);
+    glVertex2i(65, 11.5); glVertex2i(95, 11.5);
+    glEnd();
+
+    glColor3ub(217, 217, 217);
+    glBegin(GL_QUADS);
+    for (int y = 21; y >= 7; y -= 7) {
+        glVertex2i(5, y);    glVertex2i(25, y);
+        glVertex2i(25, y - 4); glVertex2i(5, y - 4);
+    }
+    glEnd();
+
+    glBegin(GL_QUADS);
+    for (int y = 17; y >= 3; y -= 7) {
+        if (y > 14)
+            glColor3ub(60, 60, 60);
+        else if (y < 14 & y>7)
+            glColor3ub(40, 40, 40);
+        else
+            glColor3ub(30, 30, 30);
+
+        glVertex2i(5, y); glVertex2i(25, y);
+        glVertex2i(25, y - 1); glVertex2i(5, y - 1);
+    }
+    glEnd();
+
+}
+
+void background() {
+    //The inner floor
+    glColor3f(0.85, 0.54, 0.50);
+    glBegin(GL_QUADS);
+    glVertex2i(0, 40);
+    glVertex2i(100, 40);
+    glVertex2i(100, 60);
+    glVertex2i(0, 60);
+
+    glColor3f(0.37, 0.49, 0.37);
+    glVertex2i(10, 40);
+    glVertex2i(90, 40);
+    glVertex2i(90, 60);
+    glVertex2i(10, 60);
+
+    //Background (Sky)
+    glColor3f(0.76, 0.82, 0.85);
+    glVertex2i(0, 60);
+    glVertex2i(100, 60);
+    glVertex2i(100, 100);
+    glColor3f(1, 1, 1);
+    glVertex2i(0, 100);
+    glEnd();
+}
+
+void drawBall(float x, float y, float r) {
+     glColor3f(0.9f, 0.4f, 0.1f); 
+    glBegin(GL_TRIANGLE_FAN);
+    glVertex2f(x,y);
+    for (int i = 0; i <= 100; i++) {
+        float angle = i * 2.0f * 3.14159f / 100;
+        glVertex2f(x + cos(angle) * r, y + sin(angle) * r);
+    }
+    glEnd();
+}
+
+
+void drawCloud(float x, float y, float r, float alpha) {
+    glColor4f(0.9f, 0.9f, 0.9f, alpha); 
+    glBegin(GL_TRIANGLE_FAN);
+    glVertex2f(x,y);
+    for (int i = 0; i <= 100; i++) {
+        float angle = i * 2.0f * 3.14159f / 100;
+        glVertex2f(x + cos(angle) * r, y + sin(angle) * r);
+    }
+    glEnd();
+}
+
+
+void drawCloud(float x, float y) {
+    drawCloud(x, y, 25, 0.4f);
+    drawCloud(x + 20, y + 15, 20, 0.4f);
+    drawCloud(x - 15, y + 15, 20, 0.4f);
+    drawCloud(x + 30, y - 10, 18, 0.4f);
+    drawCloud(x - 25, y - 10, 18, 0.4f);
+}
+void drawFogBackground() {
+    glColor4f(0.85f, 0.85f, 0.85f, 0.3f);
+    glBegin(GL_QUADS);
+    glVertex2f(-1500,-1500);
+    glVertex2f(1500, 0);
+    glVertex2f(1500, 1500);
+    glVertex2f(0, 1500);
+    glEnd();
+}
+
+
+void ENAS() {
+    
+    
+    glColor3f(0.35, 0.35, 0.3);
+    glBegin(GL_QUADS); // الأرجل الأمامية
+    glVertex2f(59, 25); glVertex2f(59, 30); glVertex2f(61.5, 30); glVertex2f(61.5, 25);
+    glEnd();
+
+    glBegin(GL_QUADS);
+    glVertex2f(74, 25); glVertex2f(74, 30); glVertex2f(76.5, 30); glVertex2f(76.5, 25);
+    glEnd();
+
+    glBegin(GL_QUADS); // الأرجل الخلفية
+    glVertex2f(63, 28); glVertex2f(63, 40); glVertex2f(65.5, 40); glVertex2f(65.5, 28);
+    glEnd();
+
+    glBegin(GL_QUADS);
+    glVertex2f(70, 28); glVertex2f(70, 40); glVertex2f(72.5, 40); glVertex2f(72.5, 28);
+    glEnd();
+
+    glColor3f(0.76, 0.60, 0.42); // المقعد
+    glBegin(GL_QUADS);
+    glVertex2f(55, 30); glVertex2f(80.5, 30); glVertex2f(77.5, 34); glVertex2f(57, 34);
+    glEnd();
+
+    glBegin(GL_QUADS); // مسند الظهر السفلي
+    glVertex2f(57, 35.5); glVertex2f(77.5, 35.5); glVertex2f(77.5, 38); glVertex2f(57, 38);
+    glEnd();
+
+    glBegin(GL_QUADS); // مسند الظهر العلوي
+    glVertex2f(57, 42); glVertex2f(77.5, 42); glVertex2f(77.5, 39.5); glVertex2f(57, 39.5);
+    glEnd();
+
+   
+    drawBall(ballBaseX + sin(ballSpeed) * 1.5f, 26, 3);
+    drawFogBackground();
+
+    drawCloud(cloudX + 0, 50);
+    drawCloud(cloudX + 40, 40);
+    drawCloud(cloudX + 80, 70);
+
+}
+
+
+void upd(int) {
+    cloudX += cloudSpeed;
+    if (cloudX > 100) cloudX = -80;
+
+    ballSpeed += 0.05f;
+
+    glutPostRedisplay();
+    glutTimerFunc(33, upd, 0);
+}
+void display() {
+    glClear(GL_COLOR_BUFFER_BIT);
+    background();
+    Lujain();
+    Wasan();
+
+    glPushMatrix();
+    glTranslated(-50, 0, 0);
+    Maha();
+    glPopMatrix();
+
+
+    Lina();
+
+Shomok();
+
+    glPushMatrix();
+    glTranslated(2, 75, 0);
+    glScaled(0.4, 0.4, 1);
+    Majd(5);
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslated(15, 75, 0);
+    glScaled(0.4, 0.4, 1);
+    Majd(5);
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslated(-8, 10, 0);
+    ENAS();
+    glPopMatrix();
+
+    glFlush();
+
+}
+
+
+
+int main(int argc, char** argv) {
+    glutInit(&argc, argv);
+    glutCreateWindow("project");
+    glutInitWindowSize(1500, 1500);
+    glutInitWindowPosition(400, 400);
+    glutDisplayFunc(display);
+    init();
+    glutTimerFunc(0, upd, 0);
+    glutMainLoop();
+
+    return 0;
+}
